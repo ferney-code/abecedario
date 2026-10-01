@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Abecedario vivo</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Abecedario">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2b1b5a">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{height:100%;margin:0;background:#2b1b5a;overflow:hidden}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:Fredoka,ui-rounded,"SF Pro Rounded","Arial Rounded MT Bold",system-ui,sans-serif;font-weight:700;color:#fff}
+#s{position:fixed;top:0;left:0;right:0;bottom:calc(0px - env(safe-area-inset-bottom,0px));overflow-y:scroll;scroll-snap-type:y mandatory;overscroll-behavior:none;-webkit-overflow-scrolling:touch}
+.l{--px:0;--py:0;height:100%;scroll-snap-align:start;scroll-snap-stop:always;position:relative;overflow:hidden;display:grid;place-items:center;
+background:radial-gradient(circle at 50% 50%,hsl(var(--h) 100% 62%),hsl(calc(var(--h) + 40) 85% 36%) 78%)}
+.k0{--a:i0}.k1{--a:i1}.k2{--a:i2}.k3{--a:i3}
+.ray{position:absolute;left:50%;top:50%;width:120vmax;height:120vmax;margin:-60vmax 0 0 -60vmax;
+background:repeating-conic-gradient(#fff5 0 9deg,#fff0 9deg 18deg);-webkit-mask:radial-gradient(closest-side,#000,transparent);mask:radial-gradient(closest-side,#000,transparent)}
+.halo{position:absolute;left:50%;top:50%;width:95vw;height:95vw;margin:-47.5vw 0 0 -47.5vw;border-radius:50%;background:radial-gradient(#ffffffcc,#fff0 65%)}
+u{position:absolute;display:block;width:var(--z);height:var(--z);background:#fff;opacity:0;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.ch{position:relative;z-index:2;font-size:min(72vw,50dvh);will-change:transform,opacity}
+.g{display:block;font-size:1em;line-height:.9;color:hsl(calc(var(--h) + 170) 100% 72%);-webkit-text-stroke:.1em #fff;paint-order:stroke fill;
+filter:drop-shadow(0 0 .12em hsl(calc(var(--h) + 170) 100% 70%)) drop-shadow(0 .05em 0 hsl(var(--h) 80% 25%/.5));user-select:none;-webkit-user-select:none}
+.e{position:absolute;top:34%;left:50%;transform:translateX(-50%);display:flex;gap:.05em}
+.e i{display:block;position:relative;width:.15em;height:.19em;border-radius:50%;background:#fff;border:.012em solid #222;overflow:hidden}
+.e b{position:absolute;left:50%;top:50%;width:.08em;height:.08em;margin:-.04em;border-radius:50%;background:#222;
+transform:translate(calc(var(--px)*.03em),calc(var(--py)*.045em));transition:transform .15s}
+.w{position:absolute;z-index:3;left:0;right:0;bottom:calc(5% + env(safe-area-inset-bottom,0px));text-align:center;font-size:9vw;text-shadow:0 .08em 0 hsl(var(--h) 80% 25%/.6)}
+.w span{display:inline-block;font-size:1.5em;vertical-align:middle}
+.hint{position:absolute;z-index:3;top:calc(4% + 8px);left:0;right:0;text-align:center;font-size:5vw;transition:opacity .4s}
+@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes pu{from{transform:scale(.8);opacity:.5}to{transform:scale(1.15);opacity:1}}
+@keyframes tw{50%{opacity:1;transform:scale(1.5) rotate(90deg)}}
+@keyframes bl{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+@keyframes bn{to{transform:translateY(-.25em) rotate(8deg)}}
+@keyframes hb{to{transform:translateY(-8px)}}
+@keyframes i0{to{transform:translateY(-5%) rotate(4deg)}}
+@keyframes i1{to{transform:scale(1.08,.92)}}
+@keyframes i2{from{transform:rotate(-5deg)}to{transform:rotate(5deg)}}
+@keyframes i3{to{transform:translateY(-8%) scale(.95,1.05)}}
+@keyframes pp{30%{transform:scale(1.3,.8)}60%{transform:scale(.9,1.15)}}
+.on .ray{animation:sp 16s linear infinite}
+.on .halo{animation:pu 2.4s ease-in-out infinite alternate}
+.on u{animation:tw 2s ease-in-out infinite var(--d)}
+.on .e i{animation:bl 4s infinite}
+.on .w span{animation:bn 1s ease-in-out infinite alternate}
+.on .hint{animation:hb 1.2s ease-in-out infinite alternate}
+.on .g{animation:var(--a) 1.8s ease-in-out infinite alternate}
+.on.pop .g{animation:pp .5s}
+@media (prefers-reduced-motion:reduce){.ray,.halo,u,.g,.w span,.hint{animation:none!important}}
+</style></head><body>
+<div id="s"></div>
+<script>
+const L="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ",
+D="🐝Abeja,🐳Ballena,🚗Carro,🐬Delfín,🐘Elefante,🍓Fresa,🐱Gato,🍦Helado,🏝️Isla,🦒Jirafa,🐨Koala,🦁León,🦋Mariposa,☁️Nube,🍝Ñoquis,🐻Oso,🐠Pez,🧀Queso,🐸Rana,☀️Sol,🐢Tortuga,🍇Uvas,🐮Vaca,🧇Waffle,🎵Xilófono,🪀Yoyó,🦊Zorro".split(","),
+S=Math.sin,P=Math.PI,R=()=>Math.random()*100|0;
+/* Una transición distinta por letra: q va de -1 (sale arriba) a 1 (entra desde abajo) */
+const F=[
+/*A*/(q,t)=>[`perspective(700px) rotateX(${-q*100}deg) scale(${1-t*.4})`,1-t],
+/*B burbuja*/(q,t)=>[`translateY(${-q*30}vh) scale(${(1-t)*(1+.25*S(t*22))})`,1-t*.6],
+/*C*/(q,t)=>[`rotate(${q*540}deg) scale(${1-t*.7})`,1-t],
+/*D dominó*/(q,t)=>[`translate(${q*55}vw,${t*25}vh) rotate(${q*75}deg)`,1-t*.6],
+/*E*/(q,t)=>[`skewX(${q*70}deg) scale(${1+t},${1-t*.6})`,1-t],
+/*F*/(q,t)=>[`translateY(${q*40}vh) scale(${1+t})`,1-t,`blur(${t*18}px)`],
+/*G*/(q,t)=>[`scale(${1+t*8})`,Math.max(0,1-t*1.6)],
+/*H*/(q,t)=>[`perspective(700px) rotateY(${q*180}deg)`,1-t*.9],
+/*I*/(q,t)=>[`translate(${q*40}vw,${q*60}vh) scale(${1-t})`,1],
+/*J columpio*/(q,t)=>[`translateY(${-t*60}vh) rotate(${S(q*14)*25}deg)`,1-t*.5],
+/*K*/(q,t)=>[`translateX(${q*110}vw) rotate(${q*40}deg)`,1],
+/*L*/(q,t)=>[`scale(${1+t*2.5},${1-t*.9})`,1-t],
+/*M ola*/(q,t)=>[`translate(${S(q*9)*30}vw,${q*35}vh) rotate(${S(q*9)*30}deg)`,1-t*.5],
+/*N arcoíris*/(q,t)=>[`scale(${1-t*.5})`,1-t*.5,`hue-rotate(${q*360}deg) saturate(2)`],
+/*Ñ*/(q,t)=>[`perspective(700px) rotateX(${q*360}deg)`,1-t*.8],
+/*O ventana redonda*/(q,t)=>["",1,"",t<.02?"none":`circle(${(1-t)*75}% at 50% 50%)`],
+/*P*/(q,t)=>[`scale(${1+S(t*P)*.7-t}) translateY(${q*15}vh)`,1-t*.5],
+/*Q*/(q,t)=>[`perspective(700px) rotate3d(1,1,0,${q*270}deg)`,1-t*.7],
+/*R rueda*/(q,t)=>[`translateX(${q*100}vw) rotate(${q*720}deg)`,1],
+/*S serpiente*/(q,t)=>[`translateX(${S(q*12)*40}vw) scaleY(${1+t}) skewY(${q*40}deg)`,1-t*.6],
+/*T torre*/(q,t)=>[`translateY(30vh) rotate(${q*95}deg) translateY(-30vh)`,1-t*.5],
+/*U*/(q,t)=>[`translate(${q*70}vw,${q*q*45}vh) rotate(${q*120}deg)`,1],
+/*V*/(q,t)=>[`translate(${q*60}vw,${-t*40}vh) rotate(${-q*30}deg)`,1],
+/*W tembleque*/(q,t)=>[`rotate(${S(q*30)*35}deg) scale(${1-t*.6})`,1-t],
+/*X espejo*/(q,t)=>[`scale(${Math.cos(q*P)},${1-t*.3})`,1-t*.7],
+/*Y*/(q,t)=>[`perspective(700px) rotateY(${q*720}deg) scale(${1-t*.5})`,1-t*.8],
+/*Z zigzag*/(q,t)=>[`translate(${Math.sign(q)*(1-Math.abs((t*4)%2-1))*50}vw,${q*70}vh)`,1]
+];
+const s=document.getElementById("s");
+s.innerHTML=[...L].map((c,i)=>{
+const m=D[i].match(/^(\P{L}+)(.+)$/u),h=Math.round(i*360/27);
+const sp=Array.from({length:10},()=>`<u style="left:${R()}%;top:${R()}%;--z:${8+R()*.2}px;--d:${(R()/30).toFixed(1)}s"></u>`).join("");
+return `<section class="l k${i%4}" style="--h:${h}"><div class="ray"></div><div class="halo"></div>${sp}${i?"":'<div class="hint">Desliza hacia arriba</div>'}<div class="ch"><span class="g">${c}</span><div class="e"><i><b></b></i><i><b></b></i></div></div><div class="w"><span>${m[1]}</span> ${m[2]}</div></section>`}).join("");
+const els=[...s.children],hint=s.querySelector(".hint");
+let H=s.clientHeight,tk=0,ly=0,act=els[0],rt;
+const io=new IntersectionObserver(es=>es.forEach(x=>{x.target.classList.toggle("on",x.isIntersecting);if(x.isIntersecting){act=x.target;document.documentElement.style.background=document.body.style.background="hsl("+(+x.target.style.getPropertyValue("--h")+40)+" 85% 36%)"}}),{root:s,threshold:.5});
+els.forEach(e=>{e.c=e.querySelector(".ch");e.w=e.querySelector(".w");io.observe(e)});
+function up(){tk=0;const y=s.scrollTop;
+els.forEach((e,i)=>{const q=(i*H-y)/H;if(Math.abs(q)>1.05)return;
+const t=Math.min(1,Math.abs(q)),r=F[i](q,t),st=e.c.style;
+st.transform=r[0]||"none";st.opacity=r[1];st.filter=r[2]||"none";st.clipPath=r[3]||"none";
+e.w.style.opacity=Math.max(0,1-t*1.5)});
+if(hint)hint.style.opacity=y>30?0:1;
+act.style.setProperty("--py",Math.max(-1,Math.min(1,(y-ly)/10)).toFixed(2));ly=y;
+clearTimeout(rt);rt=setTimeout(()=>act.style.setProperty("--py",0),500)}
+s.addEventListener("scroll",()=>{if(!tk)tk=requestAnimationFrame(up)},{passive:true});
+addEventListener("resize",()=>{H=s.clientHeight;up()});
+["touchstart","touchmove"].forEach(n=>s.addEventListener(n,e=>act.style.setProperty("--px",((e.touches[0].clientX/innerWidth-.5)*2).toFixed(2)),{passive:true}));
+s.addEventListener("click",e=>{const l=e.target.closest(".ch")&&e.target.closest(".l");if(!l)return;
+const i=els.indexOf(l);l.classList.add("pop");setTimeout(()=>l.classList.remove("pop"),520);
+try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(L[i]+", "+D[i].replace(/^\P{L}+/u,""));u.lang="es-CO";u.rate=.8;u.pitch=1.3;speechSynthesis.speak(u)}catch(_){}});
+up();
+</script></body></html>
